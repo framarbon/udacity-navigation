@@ -22,9 +22,11 @@ class QNetwork(nn.Module):
         self.hidden_layers = nn.ModuleList([nn.Linear(h1, h2) for h1, h2 in layer_sizes])
         
         self.output = nn.Linear(hidden_layers[-1], action_size)
+#         self.dropout = nn.Dropout(p=drop_p)
 
     def forward(self, x):
         """Build a network that maps state -> action values."""
         for linear in self.hidden_layers:
             x = F.relu(linear(x))
+#             x = self.dropout(x)
         return self.output(x)
